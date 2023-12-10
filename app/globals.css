@@ -103,54 +103,7 @@ body {
   width: 1450px;
   max-width: 95%;
   margin: 0 auto;
+  padding: 0px;
 }
-
-  .snoo-cls-1 {
-    fill: url(#snoo-radial-gragient);
-  }
-
-  .snoo-cls-1, .snoo-cls-2, .snoo-cls-3, .snoo-cls-4, .snoo-cls-5, .snoo-cls-6, .snoo-cls-7, .snoo-cls-8, .snoo-cls-9, .snoo-cls-10, .snoo-cls-11 {
-    stroke-width: 0px;
-  }
-
-  .snoo-cls-2 {
-    fill: url(#snoo-radial-gragient-2);
-  }
-
-  .snoo-cls-3 {
-    fill: url(#snoo-radial-gragient-3);
-  }
-
-  .snoo-cls-4 {
-    fill: url(#snoo-radial-gragient-4);
-  }
-
-  .snoo-cls-5 {
-    fill: url(#snoo-radial-gragient-6);
-  }
-
-  .snoo-cls-6 {
-    fill: url(#snoo-radial-gragient-8);
-  }
-
-  .snoo-cls-7 {
-    fill: url(#snoo-radial-gragient-5);
-  }
-
-  .snoo-cls-8 {
-    fill: url(#snoo-radial-gragient-7);
-  }
-
-  .snoo-cls-9 {
-    fill: #842123;
-  }
-
-  .snoo-cls-10 {
-    fill: #ff4500;
-  }
-
-  .snoo-cls-11 {
-    fill: #ffc49c;
-  }
 
   
