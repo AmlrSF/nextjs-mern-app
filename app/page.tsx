@@ -1,18 +1,31 @@
 import { UserButton } from "@clerk/nextjs";
+import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b
-         from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit 
-         lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-        <p className="text-white font-medium text-xl">
-          Home
-        </p>
-        <div>
-          <UserButton afterSignOutUrl="/" />
+    <header className="fixed top-0 left- py-4 w-[100%]">
+      <div className="container flex justify-between items-center">
+        <div className="flex gap-3 items-center">
+          <span>
+            <Image
+              src="/images.png"
+              width={35}
+              height={35}
+              alt="Picture of the author"
+            />
+          </span>
+          <span>
+            <p className="text-3xl sm:block hidden font-extrabold text-white">Reddit</p>
+          </span>
+        </div>
+        <div className="flex justify-center gap-3">
+          <div className="h-[33px] hover:bg-[#33464C] w-[33px]  rounded-full flex justify-center items-center">
+            <UserButton afterSignOutUrl="/" />
+          </div>
         </div>
       </div>
-    </main>
+    </header>
   )
 }
+
+
