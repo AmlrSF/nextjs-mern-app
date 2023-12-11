@@ -24,7 +24,7 @@ const LeftSiddBar = () => {
               <Link
                 href={link.route}
                 key={link.label}
-                className={`rounded-lg flex gap-3 mb-1 hover:bg-[#1A282D] items-center p-2 ${isActive?"bg-[#1A282D]":""}`}
+                className={`rounded-lg flex gap-3 mb-1 hover:bg-[#1A282D] text-white items-center p-2 ${isActive?"bg-[#1A282D]":""}`}
               >
 
                 <i className={link.imgURL}></i>
