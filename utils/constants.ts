@@ -8,7 +8,12 @@ export const sidebarLinks = [
       imgURL: "fa-solid fa-fire",
       route: "/popular",
       label: "Popular",
-    }
+    },
+    {
+      imgURL: "fa-solid fa-plus",
+      route: "/createPost",
+      label: "Create Post",
+    },
 ]
 
 export const Toppics = [
