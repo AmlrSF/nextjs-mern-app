@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 
+import { Navbar,RightSideBar,LeftSiddBar,Footer } from '@/components/shared'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -17,8 +19,22 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
+      <head>
+      <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        />
+      </head>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <Navbar />
+          <main>
+            <LeftSiddBar />
+            {children}
+            <RightSideBar />
+          </main>
+          <Footer />
+        </body>
       </html>
     </ClerkProvider>
   )

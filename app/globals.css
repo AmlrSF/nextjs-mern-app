@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* globals.css */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 
 :root {
   --bg-color:#0B1416;
@@ -96,7 +98,7 @@
       lg:static lg:w-auto  lg:rounded-x */
 
 body {
-  background-color: var(--bg-color);
+  background-color: #000;
 }
 
 .container{
