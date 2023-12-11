@@ -35,9 +35,7 @@ const Navbar = () => {
               rounded-full flex justify-center items-center cursor-pointer">
               <i className="fa-regular text-2xl text-white font-bold  fa-bell"></i>
             </div>
-            <SignOutButton>
-              <i className="fa-solid text-2xl text-white font-bold  fa-right-from-bracket"></i>
-            </SignOutButton> 
+
             <div className="h-[33px] hover:bg-[#33464C] w-[33px] 
               rounded-full flex justify-center items-center">
               <UserButton afterSignOutUrl="/" />

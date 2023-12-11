@@ -11,8 +11,8 @@ export const sidebarLinks = [
     },
     {
       imgURL: "fa-solid fa-plus",
-      route: "/createPost",
-      label: "Create Post",
+      route: "/newpost",
+      label: "New Post",
     },
 ]
 
