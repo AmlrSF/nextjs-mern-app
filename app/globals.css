@@ -98,7 +98,8 @@
       lg:static lg:w-auto  lg:rounded-x */
 
 body {
-  background-color: #000;
+  background-color: #0B1416;
+  color: white;
 }
 
 .container{
@@ -108,4 +109,25 @@ body {
   padding: 0px;
 }
 
-  
+
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #09090a;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #5c5c7b;
+  border-radius: 50px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #7878a3;
+}
+
+
