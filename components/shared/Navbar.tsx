@@ -1,7 +1,7 @@
 import { SignOutButton, SignedOut, UserButton, auth } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link";
-
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 const Navbar = () => {
   const { userId } = auth();
 
@@ -45,12 +45,17 @@ const Navbar = () => {
 
           {
             !userId && <>
-              <Link href="/sign-in" className="text-white bg-[#FF4500] px-4 py-2 rounded-full font-medium">
-                Sign In
-              </Link>
-              <Link href="/sign-up" className="text-white border-2 border-[#FF4500] px-4 py-2 rounded-full font-medium">
-                Sign Up
-              </Link>
+              <SignInButton afterSignInUrl='/' afterSignUpUrl='/onboarding'>
+                <div className="text-white border-2 border-[#FF4500] px-4 py-2 rounded-full font-medium">
+                  Sign in
+                </div>
+              </SignInButton>
+
+              <SignUpButton afterSignInUrl='/' afterSignUpUrl='/onboarding'>
+                <div className="text-white bg-[#FF4500] px-4 py-2 rounded-full font-medium">
+                  Sign up
+                </div>
+              </SignUpButton>
             </>
           }
         </div>

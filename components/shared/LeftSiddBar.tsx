@@ -29,7 +29,7 @@ const LeftSiddBar = () => {
 
                 <i className={link.imgURL}></i>
 
-                <p className='text-light-1 max-lg:hidden'>{link.label}</p>
+                <p className='text-light-1 sm:block hidden'>{link.label}</p>
               </Link>
             )
             })}

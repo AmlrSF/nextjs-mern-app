@@ -25,14 +25,47 @@ import { Textarea } from "@/components/ui/textarea";
 import { User } from "@clerk/nextjs/server";
 import { userInfo } from "os";
 import IUser from "@/interfaces/Iuser";
+import { useUploadThing } from "@/lib/uploadthing";
+import { isBase64Image } from "@/lib/utils";
+import { log } from "console";
+import { updateUser } from "@/lib/actions/user.action";
 
 
 const AccountForm = ({ user, btnTitle }: IUser) => {
+  const [loading,setLoading] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const { startUpload } = useUploadThing("imageUploader");
+  const router = useRouter();
+  const pathname = usePathname();
+  
+  const onSubmit = async(values: z.infer<typeof userValidationformSchema>) => {
+    const blob = values.image;
+    setLoading(true);
+    const hasImageChange = isBase64Image(blob);
+    if(hasImageChange){
+      const imgRes = await startUpload(files); 
+      console.log(imgRes);
+      if(imgRes && imgRes[0].url){
+        values.image = imgRes[0].url;
 
-  function onSubmit(values: z.infer<typeof userValidationformSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+      }
+    }
+
+    await updateUser({
+      name: values.name,
+      path: pathname,
+      username: values.username,
+      userId: user.id,
+      bio: values.bio,
+      image: values.image,
+    });
+
+    setLoading(false);
+    if (pathname === "/profile/edit") {
+      router.back();
+    } else {
+      router.push("/");
+    }
     console.log(values)
   }
 
@@ -62,10 +95,10 @@ const AccountForm = ({ user, btnTitle }: IUser) => {
   const form = useForm<z.infer<typeof userValidationformSchema>>({
     resolver: zodResolver(userValidationformSchema),
     defaultValues: {
-      image: "",
-      name: "",
-      username: "",
-      bio: "",
+      image: user?.image ? user.image : "",
+      name: user?.name ? user.name : "",
+      username: user?.username ? user.username : "",
+      bio: user?.bio ? user.bio : "",
     }
   })
   return (
@@ -91,7 +124,7 @@ const AccountForm = ({ user, btnTitle }: IUser) => {
                   />
                 ) : (
                   <Image
-                    src='/assets/profile.svg'
+                    src='download.svg'
                     alt='profile_icon'
                     width={24}
                     height={24}
@@ -104,7 +137,7 @@ const AccountForm = ({ user, btnTitle }: IUser) => {
                   type='file'
                   accept='image/*'
                   placeholder='Add profile photo'
-                  className='account-form_image-input'
+                  className='account-form_image-input text-white'
                   onChange={(e) => handleImage(e, field.onChange)}
                 />
               </FormControl>
@@ -123,7 +156,7 @@ const AccountForm = ({ user, btnTitle }: IUser) => {
               <FormControl>
                 <Input
                   type='text'
-                  className='bg-[#1A282D] no-focus'
+                  className='bg-[#1A282D] text-white no-focus'
                   {...field}
                 />
               </FormControl>
@@ -143,7 +176,7 @@ const AccountForm = ({ user, btnTitle }: IUser) => {
               <FormControl>
                 <Input
                   type='text'
-                  className='bg-[#1A282D] no-focus'
+                  className='bg-[#1A282D] text-white no-focus'
                   {...field}
                 />
               </FormControl>
@@ -163,7 +196,7 @@ const AccountForm = ({ user, btnTitle }: IUser) => {
               <FormControl>
                 <Textarea
                   rows={10}
-                  className='bg-[#1A282D] no-focus'
+                  className='bg-[#1A282D] text-white  no-focus'
                   {...field}
                 />
               </FormControl>
@@ -172,8 +205,9 @@ const AccountForm = ({ user, btnTitle }: IUser) => {
           )}
         />
 
-        <Button type='submit' className='bg-primary-500'>
-          {btnTitle}
+        <Button type='submit' className='text-white font-medium
+         text-xl rounded-lg bg-[#FF4500] hover:bg-[#FF4500]'>
+          {loading ? `${btnTitle}ing...` :btnTitle}
         </Button>
       </form>
     </Form>
