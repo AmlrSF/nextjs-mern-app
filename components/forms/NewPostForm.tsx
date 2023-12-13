@@ -20,15 +20,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { User } from "@clerk/nextjs/server";
-import { userInfo } from "os";
-import IUser from "@/interfaces/Iuser";
+
 import { useUploadThing } from "@/lib/uploadthing";
-import { isBase64Image } from "@/lib/utils";
-import { log } from "console";
-import { updateUser } from "@/lib/actions/user.action";
 import { postValidationformSchema } from "@/lib/validations/post";
 import { Checkbox } from "../ui/checkbox";
+import { createPost } from "@/lib/actions/post.action";
 
 interface postUser {
     userId: string
@@ -38,28 +34,47 @@ const AccountForm = ({ userId }: { userId: any }) => {
     const [loading, setLoading] = useState(false);
     const [files, setFiles] = useState<File[]>([]);
     const { startUpload } = useUploadThing("imageUploader");
-    const router = useRouter();
-    const pathname = usePathname();
-    const ImageInputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
 
+    const ImageInputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
 
     const onSubmit = async (values: z.infer<typeof postValidationformSchema>) => {
         setLoading(true);
-        const imgRes = await startUpload(files);
-        if (imgRes && imgRes[0].url) {
+      
+        try {
+          const imgRes = await startUpload(files);
+        
+          if (imgRes && imgRes.length > 0 && imgRes[0].url) {
             values.image = imgRes[0].url;
+           
+            await createPost({
+              userId,
+              Draft: values.Draft,
+              NSFW: values.NSFW,
+              name: values.name,
+              content: values.content,
+              image: values.image
+            });
+
+            setLoading(false);
+
+          } else {
+            // Handle the case where image upload failed
+            console.error("Image upload failed");
+            setLoading(false);
+          }
+        } catch (error) {
+          // Handle errors during the upload or post creation
+          console.error("Error during submission:", error);
+          setLoading(false);
         }
-
-
-        setLoading(false);
-
-        console.log(values)
-    }
+      };
+      
 
     const handleImage = (
         e: ChangeEvent<HTMLInputElement>,
         fieldChange: (value: string) => void
     ) => {
+        
         e.preventDefault();
 
         const fileReader = new FileReader();

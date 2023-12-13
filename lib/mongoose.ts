@@ -7,9 +7,7 @@ export const connectMongoDB = ()=>{
     if(!process.env.MNGO_DB_URL) return console.log("Mongo db url not found");
     if(isConnected) return console.log("Already connnected to mongodb");
 
-
     try {
-       
         mongoose.connect(process.env.MNGO_DB_URL);
 
         isConnected = true;
@@ -18,5 +16,5 @@ export const connectMongoDB = ()=>{
     } catch (error) {
         console.log(error);
     }
-
 }
+

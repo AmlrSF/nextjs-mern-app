@@ -32,7 +32,9 @@ import { updateUser } from "@/lib/actions/user.action";
 
 
 const AccountForm = ({ user, btnTitle }: IUser) => {
+
   const [loading,setLoading] = useState(false);
+
   const [files, setFiles] = useState<File[]>([]);
   const { startUpload } = useUploadThing("imageUploader");
   const router = useRouter();
@@ -41,14 +43,10 @@ const AccountForm = ({ user, btnTitle }: IUser) => {
   const onSubmit = async(values: z.infer<typeof userValidationformSchema>) => {
     const blob = values.image;
     setLoading(true);
-    const hasImageChange = isBase64Image(blob);
-    if(hasImageChange){
-      const imgRes = await startUpload(files); 
-      console.log(imgRes);
-      if(imgRes && imgRes[0].url){
-        values.image = imgRes[0].url;
-
-      }
+    const imgRes = await startUpload(files); 
+    console.log(imgRes);
+    if(imgRes && imgRes[0].url){
+      values.image = imgRes[0].url;
     }
 
     await updateUser({
