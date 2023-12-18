@@ -8,4 +8,5 @@ export default interface IUser{
         image:string
     };
     btnTitle:string;
+    
 }
